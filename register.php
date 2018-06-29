@@ -25,6 +25,7 @@
 		
 		<form id="register-form" action="register.php" method="POST">
 			<h2>Create a New Account</h2>
+			<p><?php echo $account->getError("Username must be at least 5 characters"); ?></p>
 			<label for="register-username">Username</label>
 			<input id="register-username" name="register-username" type="text" placeholder="username" required>
 			<label for="first-name">First Name</label>
