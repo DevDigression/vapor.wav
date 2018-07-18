@@ -69,6 +69,7 @@ html, body {
 	color: #a0a0a0;
 	font-size: 13px;
 	margin-top: 15px;
+	display: block;
 }
 
 #input-form-container input[type="text"],
@@ -108,4 +109,33 @@ html, body {
 	font-weight: bold;
 	font-size: 12px;
 	cursor: pointer;
+}
+
+#login-text {
+    padding: 45px;
+    display: table-cell;
+}
+
+#login-text h1 {
+	color: #11d7d8;
+}
+
+#login-text h2 {
+	margin: 35px 0;
+}
+
+#login-text ul {
+	padding: 0;
+}
+
+#login-text li {
+	font-size: 20px;
+	list-style-type: none;
+	padding: 15px 75px;
+	background: url(../images/icons/globe.png) no-repeat 0 0;
+}
+
+#input-form-container .error-message {
+	color: #11d7d8;
+	font-weight: bold;
 }

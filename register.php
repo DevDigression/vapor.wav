@@ -52,7 +52,7 @@
 					<h2>Login to Your Account</h2>
 					<p><?php echo $account->getError(Constants::$loginFailed); ?></p>
 					<label for="login-username">Username</label>
-					<input id="login-username" name="login-username" type="text" placeholder="username" required>
+					<input id="login-username" value="<?php getInputValue('login-username') ?>" name="login-username" type="text" placeholder="username" required>
 					<label for="login-password">Password</label>
 					<input id="login-password" name="login-password" type="password" placeholder="password" required>
 					<button type="submit" name="login-button">Login</button>
@@ -99,7 +99,17 @@
 					</div>
 				</form>
 			</div>
+			<div id="login-text">
+				<h1>vapor.wav</h1>
+				<h2>the 21st century could have been better</h2>
+				<ul>
+					<li>experience music of a bygone era</li>
+					<li>that never existed</li>
+					<li>stay a e s t h e t i c</li>
+				</ul>
+			</div>
 		</div>
 	</div>
+	<a href="https://icons8.com">Icon pack by Icons8</a>
 </body>
 </html>
