@@ -9,6 +9,62 @@ html, body {
 	height: 100%;
 }
 
+#top-section-container {
+	min-height: 100%;
+	width: 100%;
+}
+
+#left-navbar-container {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100vh;
+	width: 220px;
+	background-color: #25FBF3;
+}
+
+.navbar {
+	padding: 25px;
+	display: flex;
+	flex-direction: column;
+	-ms-flex-direction: column;
+}
+
+.logo img {
+	width: 32px;
+	margin-bottom: 15px;
+}
+
+.navbar .group {
+	border-top: 1px solid #a0a0a0;
+	padding: 10px 0;
+}
+
+.nav-item {
+	padding: 10px 0;
+	font-size: 14px;
+	font-weight: 700;
+	display: block;
+	letter-spacing: 1px;
+	position: relative;
+}
+
+.nav-item-link {
+	text-decoration: none;
+}
+
+.nav-item-link:hover {
+	color: #FF3BBA;
+}
+
+.nav-item-link .icon {
+	width: 40px;
+	position: absolute;
+	right: 0;
+	top: 0;
+	display: block;
+}
+
 #now-playing-bar-container {
 	width: 100%;
 	background-color: #282828;
