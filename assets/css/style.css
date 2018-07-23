@@ -9,6 +9,12 @@ html, body {
 	height: 100%;
 }
 
+body {
+	background-color: #FF3BBA;
+	font-size: 14px;
+	min-width: 720px;
+}
+
 #top-section-container {
 	min-height: 100%;
 	width: 100%;
@@ -63,6 +69,16 @@ html, body {
 	right: 0;
 	top: 0;
 	display: block;
+}
+
+#main-view-container {
+	margin-left: 220px;
+	padding-bottom: 90px;
+	width: calc(100% - 220px);
+}
+
+#main-content {
+	padding: 0 20px;
 }
 
 #now-playing-bar-container {
