@@ -249,6 +249,37 @@ body {
 	display: none;
 }
 
+.entity-info {
+	padding: 40px 0 10px 0;
+	display: inline-block;
+	width: 50%;
+}
+
+.entity-info .left-section {
+	width: 30%;
+	max-width: 250px;
+	float: left;
+}
+
+.entity-info .left-section img {
+	width: 100%;
+}
+
+.entity-info .right-section {
+	width: 70%;
+	float: left;
+	box-sizing: border-box;
+	padding: 5px 10px 5px 40px;
+}
+
+.entity-info .right-section h2 {
+	margin-top: 0;
+}
+
+.entity-info .right-section p {
+    color: #939393;
+    font-weight: 200;
+}
 
 
 /****************

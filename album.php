@@ -8,11 +8,16 @@
 
 	$album = new Album($con, $albumId);
 	$artist = $album->getArtist();
-
-	echo $album->getTitle() . "<br>";
-	echo $artist->getName();
 ?>	
 
-
+<div class="entity-info">
+	<div class="left-section">
+		<img src="<?php echo $album->getArtworkPath(); ?>" alt="Album Artwork" />
+	</div>
+	<div class="right-section">
+		<h2><?php echo $album->getTitle(); ?></h2>
+		<span>By <?php echo $artist->getName(); ?></span>
+	</div>
+</div>
 
 <?php include("./includes/footer.php"); ?>
