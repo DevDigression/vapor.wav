@@ -17,8 +17,9 @@ if (isset($_SESSION['userLoggedIn'])) {
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="./assets/css/style.css">
 	<title>V A P O R . w a v</title>
+	<link rel="stylesheet" href="./assets/css/style.css">
+	<script src="assets/js/script.js"></script>
 </head>
 <body>
 	<div id="dashboard-container">
