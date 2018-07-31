@@ -277,10 +277,52 @@ body {
 }
 
 .entity-info .right-section p {
-    color: #939393;
+    color: #fff;
     font-weight: 200;
 }
 
+.track-list {
+	padding: 0;
+}
+
+.track-list-row {
+	height: 40px;
+	padding: 15px 10px;
+	list-style: none;
+}
+
+.track-list-row span {
+	color: #fff;
+	font-weight: 200;
+}
+
+.track-list-row:hover {
+	background-color: #282828;
+}
+
+.track-count {
+	width: 8%;
+	float: left;
+}
+
+.track-list-row .track-count img {
+	width: 20px;
+	visibility: hidden;
+	cursor: pointer;
+	position: absolute;
+}
+
+.track-list-row:hover .track-count img {
+	visibility: visible;
+}
+
+.track-list-row .track-count span {
+	visibility: visible;
+}
+
+.track-list-row:hover .track-count span {
+	visibility: hidden;
+}
 
 /****************
 blue: #25FBF3
