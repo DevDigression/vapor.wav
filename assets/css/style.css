@@ -324,6 +324,41 @@ body {
 	visibility: hidden;
 }
 
+.track-list-row .track-info {
+	width: 75%;
+	float: left;
+}
+
+.track-list-row .track-info span {
+	display: block;
+}
+
+.track-list-row .track-options {
+	width: 5%;
+	text-align: right;
+	float: left;
+}
+
+.track-list-row .track-options img {
+	width: 15px;
+	visibility: hidden;
+}
+
+.track-list-row:hover .track-options img {
+	visibility: visible;
+}
+
+.track-list-row .track-duration {
+	width: 12%;
+	float: left;
+	text-align: right;
+}
+
+.track-list-row .track-info .track-name {
+	color: #fff;
+	margin-bottom: 7px;
+}
+
 /****************
 blue: #25FBF3
 pink: #FF3BBA
