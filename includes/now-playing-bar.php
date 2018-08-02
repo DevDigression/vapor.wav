@@ -10,8 +10,6 @@
 ?>
 
 <script>
-	// True/false in setTrack controls autoplay ability
-	// Console error for no interaction - can change even to 'click'
 	document.addEventListener('DOMContentLoaded', function() {
 		currentPlaylist = <?php echo $jsonArray; ?>;
 		audioElement = new Audio();
@@ -20,7 +18,25 @@
 
 	function setTrack(trackId, newPlaylist, play) {
 		audioElement.setTrack("assets/music/Sad Summer - 07 Caribbean Queen.mp3");
+		if (play == true) {
+			audioElement.play();
+		}
+	}
+
+	function playSong() {
+		var playing = document.querySelector(".play-button");
+		var paused = document.querySelector(".pause-button");
+		playing.classList.add("hidden");
+		paused.classList.remove("hidden");
 		audioElement.play();
+	}
+
+	function pauseSong() {
+		var playing = document.querySelector(".play-button");
+		var paused = document.querySelector(".pause-button");
+		paused.classList.add("hidden");
+		playing.classList.remove("hidden");
+		audioElement.pause();
 	}
 </script>
 	
@@ -46,10 +62,10 @@
 					<button class="control-button previous-button" title="Previous Button">
 						<img src="./assets/images/icons/previous-button.png" alt="Previous" />
 					</button>
-					<button class="control-button play-button" title="Play Button">
+					<button class="control-button play-button" title="Play Button" onclick="playSong()">
 						<img src="./assets/images/icons/play-button.png" alt="Play" />
 					</button>
-					<button class="control-button pause-button hidden" title="Pause Button">
+					<button class="control-button pause-button hidden" title="Pause Button" onclick="pauseSong()">
 						<img src="./assets/images/icons/pause-button.png" alt="Pause" />
 					</button>
 					<button class="control-button next-button" title="Next Button">
