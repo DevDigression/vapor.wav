@@ -10,14 +10,17 @@
 ?>
 
 <script>
+	// True/false in setTrack controls autoplay ability
+	// Console error for no interaction - can change even to 'click'
 	document.addEventListener('DOMContentLoaded', function() {
-		currentPlaylist = <?php echo $jsonArray; ?>
+		currentPlaylist = <?php echo $jsonArray; ?>;
 		audioElement = new Audio();
 		setTrack(currentPlaylist[0], currentPlaylist, false);
-	}
+	});
 
 	function setTrack(trackId, newPlaylist, play) {
-
+		audioElement.setTrack("assets/music/Sad Summer - 07 Caribbean Queen.mp3");
+		audioElement.play();
 	}
 </script>
 	
