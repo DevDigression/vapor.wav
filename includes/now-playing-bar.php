@@ -17,6 +17,17 @@
 	});
 
 	function setTrack(trackId, newPlaylist, play) {
+		
+		fetch("includes/handlers/ajax/get-song-json.php", {
+			method: "POST",
+		  	headers: {
+		    'Content-Type': 'application/json'
+		  	},
+		  	body: JSON.stringify({songId: trackId})
+		})
+		.then(res => res.json())
+		.then(data => console.log(data));
+
 		audioElement.setTrack("assets/music/Sad Summer - 07 Caribbean Queen.mp3");
 		if (play == true) {
 			audioElement.play();
