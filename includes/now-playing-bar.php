@@ -17,16 +17,35 @@
 	});
 
 	function setTrack(trackId, newPlaylist, play) {
-		var url = "includes/handlers/ajax/get-song-json.php";
-		var formData = new FormData();
-		formData.append('songId', trackId);
+		const trackURL = "includes/handlers/ajax/get-song-json.php";
+		const trackData = new FormData();
+		trackData.append('songId', trackId);
 
-		fetch(url, { method: 'POST', body: formData })
+		fetch(trackURL, { method: 'POST', body: trackData })
 		.then(function (response) {
 		  return response.text();
 		})
 		.then(function (body) {
-		  var track = JSON.parse(body);
+		  const track = JSON.parse(body);
+
+		  const trackName = document.querySelector(".track-name span"); 
+		  trackName.innerHTML = track.title;
+
+		const artistURL = "includes/handlers/ajax/get-artist-json.php";
+		const artistData = new FormData();
+		artistData.append('artistId', track.artist);
+
+		// Nested ajax call to get artist info once track has been returned 
+		fetch(artistURL, {method: 'POST', body: artistData})
+		.then(function (response) {
+		  return response.text();
+		})
+		.then(function (body) {
+		  const artist = JSON.parse(body);
+
+		  const artistName = document.querySelector(".artist-name span"); 
+		  artistName.innerHTML = artist.name;
+
 		  audioElement.setTrack(track.path);
 		  audioElement.play();
 		});
@@ -34,6 +53,7 @@
 		if (play == true) {
 			audioElement.play();
 		}
+		});
 	}
 
 	function playSong() {
@@ -61,8 +81,8 @@
 					<img class="album-artwork" src="https://f4.bcbits.com/img/a1915979467_10.jpg" alt="" />
 				</span>
 				<div class="track-info">
-					<span class="track-name"><span>Track</span></span>
-					<span class="artist-name"><span>Artist</span></span>
+					<span class="track-name"><span></span></span>
+					<span class="artist-name"><span></span></span>
 				</div>
 			</div>	
 		</div>
