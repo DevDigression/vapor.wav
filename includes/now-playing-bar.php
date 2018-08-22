@@ -61,8 +61,8 @@
 		  albumName.src = album.artworkPath;
 
 		  // Play track
-		  audioElement.setTrack(track.path);
-		  audioElement.play();
+		  audioElement.setTrack(track);
+		  playSong();
 		});
 
 		if (play == true) {
@@ -72,16 +72,24 @@
 	}
 
 	function playSong() {
-		var playing = document.querySelector(".play-button");
-		var paused = document.querySelector(".pause-button");
+		if (audioElement.audio.currentTime == 0) {
+		const playcountURL = "includes/handlers/ajax/update-plays.php";
+		const playcountData = new FormData();
+		playcountData.append('songId', audioElement.currentlyPlaying.id);
+
+		fetch(playcountURL, { method: 'POST', body: playcountData });
+		}
+
+		const playing = document.querySelector(".play-button");
+		const paused = document.querySelector(".pause-button");
 		playing.classList.add("hidden");
 		paused.classList.remove("hidden");
 		audioElement.play();
 	}
 
 	function pauseSong() {
-		var playing = document.querySelector(".play-button");
-		var paused = document.querySelector(".pause-button");
+		const playing = document.querySelector(".play-button");
+		const paused = document.querySelector(".pause-button");
 		paused.classList.add("hidden");
 		playing.classList.remove("hidden");
 		audioElement.pause();
