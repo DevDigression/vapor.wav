@@ -17,18 +17,20 @@
 	});
 
 	function setTrack(trackId, newPlaylist, play) {
-		
-		fetch("includes/handlers/ajax/get-song-json.php", {
-			method: "POST",
-		  	headers: {
-		    'Content-Type': 'application/json'
-		  	},
-		  	body: JSON.stringify({songId: trackId})
-		})
-		.then(res => res.json())
-		.then(data => console.log(data));
+		var url = "includes/handlers/ajax/get-song-json.php";
+		var formData = new FormData();
+		formData.append('songId', trackId);
 
-		audioElement.setTrack("assets/music/Sad Summer - 07 Caribbean Queen.mp3");
+		fetch(url, { method: 'POST', body: formData })
+		.then(function (response) {
+		  return response.text();
+		})
+		.then(function (body) {
+		  var track = JSON.parse(body);
+		  audioElement.setTrack(track.path);
+		  audioElement.play();
+		});
+
 		if (play == true) {
 			audioElement.play();
 		}
