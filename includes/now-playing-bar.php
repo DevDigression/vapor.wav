@@ -31,11 +31,11 @@
 		  const trackName = document.querySelector(".track-name span"); 
 		  trackName.innerHTML = track.title;
 
+		// Nested ajax call to get artist info once track has been returned 
 		const artistURL = "includes/handlers/ajax/get-artist-json.php";
 		const artistData = new FormData();
 		artistData.append('artistId', track.artist);
 
-		// Nested ajax call to get artist info once track has been returned 
 		fetch(artistURL, {method: 'POST', body: artistData})
 		.then(function (response) {
 		  return response.text();
@@ -45,7 +45,22 @@
 
 		  const artistName = document.querySelector(".artist-name span"); 
 		  artistName.innerHTML = artist.name;
+		});
 
+		// Nested ajax call to get album artwork once track has been returned 
+		const albumURL = "includes/handlers/ajax/get-album-json.php";
+		const albumData = new FormData();
+		albumData.append('albumId', track.album);
+		fetch(albumURL, {method: 'POST', body: albumData})
+		.then(function (response) {
+		  return response.text();
+		})
+		.then(function (body) {
+		  const album = JSON.parse(body);
+		  const albumName = document.querySelector(".album-link img"); 
+		  albumName.src = album.artworkPath;
+
+		  // Play track
 		  audioElement.setTrack(track.path);
 		  audioElement.play();
 		});
@@ -78,7 +93,7 @@
 		<div id="now-playing-left">
 			<div class="content">
 				<span class="album-link">
-					<img class="album-artwork" src="https://f4.bcbits.com/img/a1915979467_10.jpg" alt="" />
+					<img class="album-artwork" src="" alt="" />
 				</span>
 				<div class="track-info">
 					<span class="track-name"><span></span></span>
