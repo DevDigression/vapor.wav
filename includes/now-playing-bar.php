@@ -14,7 +14,35 @@
 		currentPlaylist = <?php echo $jsonArray; ?>;
 		audioElement = new Audio();
 		setTrack(currentPlaylist[0], currentPlaylist, false);
+
+		var barClickStatus = document.querySelector(".playback-bar .progress-bar");
+		barClickStatus.addEventListener("mousedown", function() {
+			mouseDown = true;
+		});
+
+		var barDrag = document.querySelector(".playback-bar .progress-bar");
+		barDrag.addEventListener("mousemove", function(event) {
+			if (mouseDown == true) {
+				//Set time of song depending on position of mouse
+				timeFromOffset(event, this);
+			}
+		});
+
+		var barDragComplete = document.querySelector(".playback-bar .progress-bar");
+		barDragComplete.addEventListener("mouseup", function(event) {
+			timeFromOffset(event, this);
+		});
+
+		document.addEventListener('mouseup', function() {
+			mouseDown = false;
+		});
 	});
+
+	function timeFromOffset(mouse, progressBar) {
+		var percentage = mouse.offsetX / progressBar.offsetWidth * 100;
+		var seconds = audioElement.audio.duration * (percentage / 100);
+		audioElement.setTime(seconds);
+	}
 
 	function setTrack(trackId, newPlaylist, play) {
 		const trackURL = "includes/handlers/ajax/get-song-json.php";
