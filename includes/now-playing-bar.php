@@ -14,24 +14,51 @@
 		currentPlaylist = <?php echo $jsonArray; ?>;
 		audioElement = new Audio();
 		setTrack(currentPlaylist[0], currentPlaylist, false);
+		updateVolumeProgressBar(audioElement.audio);
 
-		var barClickStatus = document.querySelector(".playback-bar .progress-bar");
-		barClickStatus.addEventListener("mousedown", function() {
+// Playback bar functionality for dragging to certain time(s)
+		var playbackbarClickStatus = document.querySelector(".playback-bar .progress-bar");
+		playbackbarClickStatus.addEventListener("mousedown", function() {
 			mouseDown = true;
 		});
 
-		var barDrag = document.querySelector(".playback-bar .progress-bar");
-		barDrag.addEventListener("mousemove", function(event) {
+		var playbackbarDrag = document.querySelector(".playback-bar .progress-bar");
+		playbackbarDrag.addEventListener("mousemove", function(event) {
 			if (mouseDown == true) {
 				//Set time of song depending on position of mouse
 				timeFromOffset(event, this);
 			}
 		});
 
-		var barDragComplete = document.querySelector(".playback-bar .progress-bar");
-		barDragComplete.addEventListener("mouseup", function(event) {
+		var playbackbarDragComplete = document.querySelector(".playback-bar .progress-bar");
+		playbackbarDragComplete.addEventListener("mouseup", function(event) {
 			timeFromOffset(event, this);
 		});
+
+// Volume bar functionality for dragging volume level
+		var volumebarClickStatus = document.querySelector(".volume-bar .progress-bar");
+		volumebarClickStatus.addEventListener("mousedown", function() {
+			mouseDown = true;
+		});
+
+		var volumebarDrag = document.querySelector(".volume-bar .progress-bar");
+		volumebarDrag.addEventListener("mousemove", function(event) {
+			if (mouseDown == true) {
+				var volumePercentage = event.offsetX / volumebarDrag.offsetWidth;
+				if (volumePercentage >= 0 && volumePercentage <= 1) {
+					audioElement.audio.volume = volumePercentage;
+				}
+			}
+		});
+
+		var volumebarDragComplete = document.querySelector(".volume-bar .progress-bar");
+		volumebarDragComplete.addEventListener("mouseup", function(event) {
+			var volumePercentage = event.offsetX / volumebarDrag.offsetWidth;
+			if (volumePercentage >= 0 && volumePercentage <= 1) {
+				audioElement.audio.volume = volumePercentage;
+			}
+		});
+
 
 		document.addEventListener('mouseup', function() {
 			mouseDown = false;

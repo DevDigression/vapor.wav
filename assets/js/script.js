@@ -23,6 +23,12 @@ function updateTimeProgressBar(audio) {
 	progress.style.width = percentComplete + "%";
 }
 
+function updateVolumeProgressBar(audio) {
+	var volumeLevel = audio.volume * 100;
+	var volume = document.querySelector(".volume-bar .progress");
+	volume.style.width = volumeLevel + "%";
+}
+
 function Audio() {
 	this.currentlyPlaying;
 	this.audio = document.createElement("audio");
@@ -31,12 +37,17 @@ function Audio() {
 		var duration = formatTime(this.duration);
 		var remainingTime = document.querySelector(".progress-time.remaining");
 		remainingTime.textContent = duration;
+		updateVolumeProgressBar(this);
 	});
 
 	this.audio.addEventListener("timeupdate", function() {
 		if (this.duration) {
 			updateTimeProgressBar(this);
 		}
+	});
+
+	this.audio.addEventListener("volumechange", function() {
+		updateVolumeProgressBar(this);
 	});
 
 	this.setTrack = function(track) {
