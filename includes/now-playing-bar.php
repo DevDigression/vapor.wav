@@ -79,6 +79,18 @@
 		audioElement.setTime(seconds);
 	}
 
+	function previousSong() {
+		// Check whether song is at least 3 seconds in, or if it is first song in playlist
+		if (audioElement.audio.currentTime >= 3 || currentIndex == 0) {
+			// Restart same song
+			audioElement.setTime(0);
+		} else {
+			// Go back to previous song
+			currentIndex--;
+			setTrack(currentPlaylist[currentIndex], currentPlaylist, true);
+		}
+	}
+
 	function nextSong() {
 		if (repeat == true) {
 			audioElement.setTime(0);
@@ -102,6 +114,14 @@
 
 		var repeatButton = document.querySelector(".control-button.repeat-button img");
 		repeatButton.src = "assets/images/icons/" + imageName;
+	}
+
+	function setMute() {
+		audioElement.audio.muted = !audioElement.audio.muted;
+		var volumeImage = audioElement.audio.muted ? "volume-mute-button.png" : "volume-button.png";
+
+		var muteStatus = document.querySelector(".control-button.volume img");
+		muteStatus.src = "assets/images/icons/" + volumeImage;
 	}
 
 	function setTrack(trackId, newPlaylist, play) {
@@ -206,7 +226,7 @@
 					<button class="control-button shuffle-button" title="Shuffle Button">
 						<img src="./assets/images/icons/shuffle-button-inactive.png" alt="Shuffle" />
 					</button>
-					<button class="control-button previous-button" title="Previous Button">
+					<button class="control-button previous-button" title="Previous Button" onclick="previousSong()">
 						<img src="./assets/images/icons/previous-button.png" alt="Previous" />
 					</button>
 					<button class="control-button play-button" title="Play Button" onclick="playSong()">
@@ -236,7 +256,7 @@
 		</div>
 		<div id="now-playing-right">
 			<div class="volume-bar">
-				<button class="control-button" title="Volume Button">
+				<button class="control-button volume" title="Volume Button" onclick="setMute()">
 					<img src="./assets/images/icons/volume-button.png" alt="Volume" />
 				</button>
 				<div class="progress-bar">
