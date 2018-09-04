@@ -16,6 +16,14 @@
 		setTrack(currentPlaylist[0], currentPlaylist, false);
 		updateVolumeProgressBar(audioElement.audio);
 
+// Prevent highlighting controls on mouse drag  
+		var nowPlayingBarContainer = document.getElementById("now-playing-bar-container");
+		['mousemove', 'touchmove', 'mousedown', 'touchstart'].forEach(function(event) {
+  			nowPlayingBarContainer.addEventListener(event, function(e) {
+  				e.preventDefault();
+  			});
+		});
+
 // Playback bar functionality for dragging to certain time(s)
 		var playbackbarClickStatus = document.querySelector(".playback-bar .progress-bar");
 		playbackbarClickStatus.addEventListener("mousedown", function() {
@@ -71,7 +79,35 @@
 		audioElement.setTime(seconds);
 	}
 
+	function nextSong() {
+		if (repeat == true) {
+			audioElement.setTime(0);
+			playSong();
+			return;
+		}
+
+		if (currentIndex == currentPlaylist.length - 1) {
+			currentIndex = 0;
+		} else {
+			currentIndex++;
+		}
+
+		var trackToPlay = currentPlaylist[currentIndex];
+		setTrack(trackToPlay, currentPlaylist, true);
+	}
+
+	function setRepeat() {
+		repeat = !repeat;
+		var imageName = repeat ? "repeat-button-active.png" : "repeat-button-inactive.png";
+
+		var repeatButton = document.querySelector(".control-button.repeat-button img");
+		repeatButton.src = "assets/images/icons/" + imageName;
+	}
+
 	function setTrack(trackId, newPlaylist, play) {
+		currentIndex = currentPlaylist.indexOf(trackId);
+		pauseSong();
+
 		const trackURL = "includes/handlers/ajax/get-song-json.php";
 		const trackData = new FormData();
 		trackData.append('songId', trackId);
@@ -168,7 +204,7 @@
 			<div class="content player-controls">
 				<div class="buttons">
 					<button class="control-button shuffle-button" title="Shuffle Button">
-						<img src="./assets/images/icons/shuffle-button.png" alt="Shuffle" />
+						<img src="./assets/images/icons/shuffle-button-inactive.png" alt="Shuffle" />
 					</button>
 					<button class="control-button previous-button" title="Previous Button">
 						<img src="./assets/images/icons/previous-button.png" alt="Previous" />
@@ -179,11 +215,11 @@
 					<button class="control-button pause-button hidden" title="Pause Button" onclick="pauseSong()">
 						<img src="./assets/images/icons/pause-button.png" alt="Pause" />
 					</button>
-					<button class="control-button next-button" title="Next Button">
+					<button class="control-button next-button" title="Next Button" onclick="nextSong()">
 						<img src="./assets/images/icons/next-button.png" alt="Next" />
 					</button>
-					<button class="control-button repeat-button" title="Repeat Button">
-						<img src="./assets/images/icons/repeat-button.png" alt="Repeat" />
+					<button class="control-button repeat-button" title="Repeat Button" onclick="setRepeat()">
+						<img src="./assets/images/icons/repeat-button-inactive.png" alt="Repeat" />
 					</button>
 				</div>
 

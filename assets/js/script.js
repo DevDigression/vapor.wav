@@ -1,6 +1,8 @@
 var currentPlaylist = [];
 var audioElement;
 var mouseDown = false;
+var currentIndex = 0;
+var repeat = false;
 
 function formatTime(seconds) {
 	var time = Math.round(seconds);
@@ -37,7 +39,6 @@ function Audio() {
 		var duration = formatTime(this.duration);
 		var remainingTime = document.querySelector(".progress-time.remaining");
 		remainingTime.textContent = duration;
-		updateVolumeProgressBar(this);
 	});
 
 	this.audio.addEventListener("timeupdate", function() {
