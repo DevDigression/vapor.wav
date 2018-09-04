@@ -11,9 +11,9 @@
 
 <script>
 	document.addEventListener('DOMContentLoaded', function() {
-		currentPlaylist = <?php echo $jsonArray; ?>;
+		var newPlaylist = <?php echo $jsonArray; ?>;
 		audioElement = new Audio();
-		setTrack(currentPlaylist[0], currentPlaylist, false);
+		setTrack(newPlaylist[0], newPlaylist, false);
 		updateVolumeProgressBar(audioElement.audio);
 
 // Prevent highlighting controls on mouse drag  
@@ -104,7 +104,7 @@
 			currentIndex++;
 		}
 
-		var trackToPlay = currentPlaylist[currentIndex];
+		var trackToPlay = shuffle ? shuffledPlaylist[currentIndex] : currentPlaylist[currentIndex];
 		setTrack(trackToPlay, currentPlaylist, true);
 	}
 
@@ -124,8 +124,48 @@
 		muteStatus.src = "assets/images/icons/" + volumeImage;
 	}
 
+	function setShuffle() {
+		shuffle = !shuffle;
+		var shuffleImage = shuffle ? "shuffle-button-active.png" : "shuffle-button-inactive.png";
+
+		var shuffleButton = document.querySelector(".control-button.shuffle-button img");
+		shuffleButton.src = "assets/images/icons/" + shuffleImage;
+
+		if (shuffle == true) {
+			// shufflePlaylist contains copy of original playlist
+			randomizePlaylist(shuffledPlaylist);
+			// set song currently playing to new index it gets in shuffled playlist and start from there in shuffled playlist
+			currentIndex = shuffledPlaylist.indexOf(audioElement.currentlyPlaying.id);
+		} else {
+			// Return to unshuffled playlist, set index back to original
+			currentIndex = currentPlaylist.indexOf(audioElement.currentlyPlaying.id);
+		}
+	}
+
+	function randomizePlaylist(playlist) {
+		var index, random, temp;
+		for (index = playlist.length; index; index--) {
+			random = Math.floor(Math.random() * index);
+			temp = playlist[index - 1];
+			playlist[index - 1] = playlist[random];
+			playlist[random] = temp;
+		}
+	}
+
 	function setTrack(trackId, newPlaylist, play) {
-		currentIndex = currentPlaylist.indexOf(trackId);
+		if (newPlaylist != currentPlaylist) {
+			// create copy of playlist in shufflePlaylist
+			currentPlaylist = newPlaylist;
+			shuffledPlaylist = currentPlaylist.slice();
+			randomizePlaylist(shuffledPlaylist);
+		}
+
+		if (shuffle == true) {
+			currentIndex = shuffledPlaylist.indexOf(trackId);
+		} else {
+			currentIndex = currentPlaylist.indexOf(trackId);
+		}
+	
 		pauseSong();
 
 		const trackURL = "includes/handlers/ajax/get-song-json.php";
@@ -223,7 +263,7 @@
 		<div id="now-playing-center">
 			<div class="content player-controls">
 				<div class="buttons">
-					<button class="control-button shuffle-button" title="Shuffle Button">
+					<button class="control-button shuffle-button" title="Shuffle Button" onclick="setShuffle()">
 						<img src="./assets/images/icons/shuffle-button-inactive.png" alt="Shuffle" />
 					</button>
 					<button class="control-button previous-button" title="Previous Button" onclick="previousSong()">
