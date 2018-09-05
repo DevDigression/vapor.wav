@@ -19,15 +19,8 @@ function renderPage(url) {
 	var encodedUrl = encodeURI(url + "&userLoggedIn=" + userLoggedIn);
 
 	$("#main-content").load(encodedUrl);
-	// fetch(encodedUrl)
-	// 	.then(function(response) {
-	// 		return response.text();
-	// 	})
-	// 	.then(function(body) {
-	// 		console.log(body);
-	// 		var pageContent = document.getElementById("main-content");
-	// 		pageContent.innerHTML = body;
-	// 	});
+	$("body").scrollTop(0);
+	history.pushState(null, null, url);
 }
 
 function formatTime(seconds) {

@@ -213,11 +213,11 @@
 
 		  // Play track
 		  audioElement.setTrack(track);
+		  if (play == true) {
+			playSong();
+		  }
 		});
 
-		if (play == true) {
-			audioElement.play();
-		}
 		});
 	}
 
