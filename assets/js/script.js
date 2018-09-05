@@ -6,6 +6,29 @@ var mouseDown = false;
 var currentIndex = 0;
 var repeat = false;
 var shuffle = false;
+var userLoggedIn;
+
+function renderPage(url) {
+	// If no query marker (?) in url, add one
+	if (url.indexOf("?") == -1) {
+		url = url + "?";
+	}
+
+	// encodeURI converts characters into URL-friendly chars
+	// (eg, Dev Digression -> Dev%20Digression)
+	var encodedUrl = encodeURI(url + "&userLoggedIn=" + userLoggedIn);
+
+	$("#main-content").load(encodedUrl);
+	// fetch(encodedUrl)
+	// 	.then(function(response) {
+	// 		return response.text();
+	// 	})
+	// 	.then(function(body) {
+	// 		console.log(body);
+	// 		var pageContent = document.getElementById("main-content");
+	// 		pageContent.innerHTML = body;
+	// 	});
+}
 
 function formatTime(seconds) {
 	var time = Math.round(seconds);

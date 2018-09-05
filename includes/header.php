@@ -9,6 +9,7 @@ include("includes/classes/Song.php");
 
 if (isset($_SESSION['userLoggedIn'])) {
 	$userLoggedIn = $_SESSION['userLoggedIn'];
+	echo "<script>userLoggedIn = '$userLoggedIn';</script>";
 } else {
 	header("Location: register.php");
 }
@@ -19,6 +20,7 @@ if (isset($_SESSION['userLoggedIn'])) {
 	<meta charset="UTF-8">
 	<title>V A P O R . w a v</title>
 	<link rel="stylesheet" href="./assets/css/style.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="assets/js/script.js"></script>
 </head>
 <body>
